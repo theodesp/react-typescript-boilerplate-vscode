@@ -20,6 +20,7 @@ module.exports = {
       "./src/index.tsx"
     ]
   },
+  target: "web",
   output: {
     filename: "app-[hash].js",
     devtoolModuleFilenameTemplate: function (info) {

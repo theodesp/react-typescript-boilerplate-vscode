@@ -7,7 +7,8 @@
     "build:dev": "cross-env NODE_ENV=development webpack --config config/webpack.dev.config.js",
     "prebuild": "rimraf build",
     "start": "node server.js",
-    "clean": "rimraf build"
+    "clean": "rimraf build",
+    "test": "tsc && mocha --require ./test-setup.js --recursive ./build/**/__spec__/**/*-spec.js"
   },
   "repository": {
     "type": "git",

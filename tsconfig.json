@@ -10,9 +10,12 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "outDir": "build",
-    "jsx": "react"
+    "jsx": "react",
+    "typeRoots": [ "node_modules/@types/", "type-declarations" ],
+    "types": [ "react", "react-dom", "mocha", "chai", "sinon"]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build"
   ]
 }

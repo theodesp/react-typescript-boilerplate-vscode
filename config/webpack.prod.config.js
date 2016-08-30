@@ -13,6 +13,7 @@ module.exports = {
     ],
     app: ["./src/index.tsx"]
   },
+  target: "web",
   output: {
     path: path.join(__dirname, "..", "build"),
     filename: "app-[hash].js",
@@ -30,7 +31,8 @@ module.exports = {
         warnings: false
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin("vendors", "vendors_[chunkhash].js")
+    new webpack.optimize.CommonsChunkPlugin("vendors", "vendors_[hash].js"),
+    new webpack.optimize.DedupePlugin()
   ],
   resolve: {
     root: [path.resolve("../src")],
