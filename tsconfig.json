@@ -8,10 +8,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": false,
+    "strictNullChecks": true,
     "sourceMap": true,
     "outDir": "build",
     "jsx": "react",
-    "typeRoots": [ "node_modules/@types/", "type-declarations" ],
+    "typeRoots": [ "node_modules/@types/", "type-declarations/" ],
     "types": [ "react", "react-dom", "mocha", "chai", "sinon"]
   },
   "exclude": [
