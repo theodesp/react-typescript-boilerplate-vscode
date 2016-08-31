@@ -27,7 +27,7 @@
             "request": "mocha",
 			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
 			"stopOnEntry": false,
-			"args": ["--require", "./test-setup.js", "--recursive", "./build/**/__spec__/**/*-spec.js"],
+			"args": ["--require", "./test-setup.js", "--recursive", "./build/**/__spec__/**/*-spec.js", "--reporter", "progress"],
 			"cwd": "${workspaceRoot}",
 			"runtimeExecutable": null,
 			"env": { "NODE_ENV": "production"}

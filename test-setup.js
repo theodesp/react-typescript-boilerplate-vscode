@@ -1,9 +1,15 @@
 const jsdom = require("jsdom");
 require("babel-polyfill");
 
-require('babel-core/register')({
+require("babel-core/register")({
   ignore: /node_modules/
-}); 
+});
+
+// This assures the .babelrc dev config (which includes
+// hot module reloading code) doesn"t apply for tests.
+// Setting NODE_ENV to test instead of production because setting it to production will suppress error messaging
+// and propType validation warnings.
+process.env.NODE_ENV = "test";
 
 [".wav", ".css", "less"].forEach(function (ext) {
   require.extensions[ext] = function (module, filename) {

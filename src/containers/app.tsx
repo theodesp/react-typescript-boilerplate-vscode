@@ -5,6 +5,6 @@ export default class App extends React.Component<{}, {}> {
 
         return (<div>
             Hello world
-        </div>)
+        </div>);
     }
 }

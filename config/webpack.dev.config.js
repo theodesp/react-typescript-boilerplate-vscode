@@ -5,7 +5,8 @@ const WebpackNotifierPlugin = require("webpack-notifier");
 const nodeModulesPath = path.join(__dirname, "node_modules");
 
 module.exports = {
-  devtool: "eval-source-map",
+  devtool: "cheap-module-eval-source-map",
+  noInfo: true,
   entry: {
     vendors: [
       "react",
@@ -22,7 +23,7 @@ module.exports = {
   },
   target: "web",
   output: {
-    filename: "app-[hash].js",
+    filename: "app.js",
     devtoolModuleFilenameTemplate: function (info) {
       if (info.absoluteResourcePath.charAt(0) === "/") {
         return "file://" + info.absoluteResourcePath;
@@ -51,9 +52,15 @@ module.exports = {
       { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]" },
       { test: /\.css$/, loader: "style!css", include: path.resolve(__dirname, "..", "src") },
       { test: /\.less$/, loader: "style!css!less", include: path.resolve(__dirname, "..", "src") },
+      {test: /\.ico$/, loader: "file?name=[name].[ext]"}
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        "NODE_ENV": JSON.stringify("development")
+      }
+    }),
     // Add the HMR plugin
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

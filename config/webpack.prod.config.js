@@ -13,10 +13,12 @@ module.exports = {
     ],
     app: ["./src/index.tsx"]
   },
+  debug: true,
+  noInfo: true,
   target: "web",
   output: {
     path: path.join(__dirname, "..", "build"),
-    filename: "app-[hash].js",
+    filename: "[name].[chunkhash].js",
     publicPath: "/static/"
   },
   plugins: [
@@ -44,7 +46,8 @@ module.exports = {
       { test: /\.tsx?$/, loaders: ["babel", "ts-loader"] },
       { test: /\.css$/, loader: "style-loader!css-loader?minimize", include: path.resolve(__dirname, "..", "src") },
       { test: /\.less$/, loader: "style-loader!css-loader?minimize!less-loader?compress", include: path.resolve(__dirname, "..", "src") },
-      { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]" }
+      { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]" },
+      { test: /\.ico$/, loader: "file?name=[name].[ext]" }
     ]
   },
 }

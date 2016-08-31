@@ -5,11 +5,14 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js",
     "build:dev": "cross-env NODE_ENV=development webpack --config config/webpack.dev.config.js",
-    "prebuild": "rimraf build",
+    "tslint": "tslint -c ./tslint.json -e node_modules ./src/**/*.tsx",
+    "prebuild": "rimraf build && npm run tslint && npm run test",
     "start": "npm run build && node server.js",
     "start:dev": "npm run build:dev && node server.js",
     "clean": "rimraf build",
-    "test": "tsc && mocha --require ./test-setup.js --recursive ./build/**/__spec__/**/*-spec.js"
+    "test": "tsc && mocha --require ./test-setup.js --recursive ./build/**/__spec__/**/*-spec.js --reporter progress",
+    "test:cover": "isparta cover --root src --report html node_modules/mocha/bin/_mocha -- --require ./test-setup.js --recursive ./build/**/__spec__/**/*-spec.js --reporter progress",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -47,6 +50,7 @@
     "cross-env": "^2.0.1",
     "css-loader": "0.24.0",
     "file-loader": "0.9.0",
+    "isparta": "^4.0.0",
     "jsdom": "9.4.2",
     "less": "2.7.1",
     "less-loader": "2.2.3",
@@ -57,7 +61,8 @@
     "sinon-chai": "2.8.0",
     "style-loader": "0.13.1",
     "ts-loader": "0.8.2",
-    "typescript": "^2.0.0",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.2",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.15.0",
     "webpack-notifier": "1.4.1"
