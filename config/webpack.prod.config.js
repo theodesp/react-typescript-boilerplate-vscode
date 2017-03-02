@@ -13,8 +13,6 @@ module.exports = {
     ],
     app: ["./src/index.tsx"]
   },
-  debug: true,
-  noInfo: true,
   target: "web",
   output: {
     path: path.join(__dirname, "..", "build"),
@@ -33,17 +31,15 @@ module.exports = {
         warnings: false
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin("vendors", "vendors_[hash].js"),
-    new webpack.optimize.DedupePlugin()
+    new webpack.optimize.CommonsChunkPlugin({name: "vendors", filename: "vendors_[hash].js"})
   ],
   resolve: {
-    root: [path.resolve("../src")],
-    extensions: ["", ".jsx", ".js", ".tsx", ".ts", ".less", ".css"],
-    modulesDirectories: ["src", "node_modules"]
+    extensions: [".jsx", ".js", ".tsx", ".ts", ".less", ".css"],
+    modules: ["src", "node_modules"]
   },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loaders: ["babel", "ts-loader"] },
+      { test: /\.tsx?$/, loaders: ["babel-loader", "ts-loader"] },
       { test: /\.css$/, loader: "style-loader!css-loader?minimize", include: path.resolve(__dirname, "..", "src") },
       { test: /\.less$/, loader: "style-loader!css-loader?minimize!less-loader?compress", include: path.resolve(__dirname, "..", "src") },
       { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]" },

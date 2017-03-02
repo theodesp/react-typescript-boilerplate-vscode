@@ -6,7 +6,6 @@ const nodeModulesPath = path.join(__dirname, "node_modules");
 
 module.exports = {
   devtool: "cheap-module-eval-source-map",
-  noInfo: true,
   entry: {
     vendors: [
       "react",
@@ -42,13 +41,12 @@ module.exports = {
     path: path.join(__dirname, "..", "build"),
   },
   resolve: {
-    root: [path.resolve("../src")],
-    extensions: ["", ".ts", ".tsx", ".js", ".jsx", ".less", ".css"],
-    modulesDirectories: ["src", "node_modules"]
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".less", ".css"],
+    modules: ["src", "node_modules"]
   },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loaders: ["babel", "ts-loader"] },
+      { test: /\.tsx?$/, loaders: ["babel-loader", "ts-loader"] },
       { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]" },
       { test: /\.css$/, loader: "style!css", include: path.resolve(__dirname, "..", "src") },
       { test: /\.less$/, loader: "style!css!less", include: path.resolve(__dirname, "..", "src") },
@@ -65,6 +63,6 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new WebpackNotifierPlugin({ alwaysNotify: true }),
-    new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js"),
+    new webpack.optimize.CommonsChunkPlugin({name: "vendors", filename: "vendors.js"}),
   ]
 };
