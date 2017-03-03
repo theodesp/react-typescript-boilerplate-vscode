@@ -46,11 +46,11 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loaders: ["babel-loader", "ts-loader"] },
-      { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]" },
-      { test: /\.css$/, loader: "style!css", include: path.resolve(__dirname, "..", "src") },
+      { test: /\.tsx?$/, loaders: ["react-hot-loader/webpack", "babel-loader", "awesome-typescript-loader"], exclude: /node_modules/ },
+      { test: /\.(png|gif|jpg|ttf|eot|otf)$/, loader: "file-loader?name=[sha512:hash:base36:7].[ext]", exclude: /node_modules/ },
+      { test: /\.css$/, loader: "style!css", include: path.resolve(__dirname, "..", "src"), exclude: /node_modules/ },
       { test: /\.less$/, loader: "style!css!less", include: path.resolve(__dirname, "..", "src") },
-      {test: /\.ico$/, loader: "file?name=[name].[ext]"}
+      {test: /\.ico$/, loader: "file?name=[name].[ext]", exclude: /node_modules/}
     ]
   },
   plugins: [
@@ -61,8 +61,13 @@ module.exports = {
     }),
     // Add the HMR plugin
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new WebpackNotifierPlugin({ alwaysNotify: true }),
     new webpack.optimize.CommonsChunkPlugin({name: "vendors", filename: "vendors.js"}),
-  ]
+  ],
+  externals: {
+    'react/lib/ReactContext': 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/addons': true,
+  }
 };

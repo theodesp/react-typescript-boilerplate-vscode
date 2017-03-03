@@ -18,5 +18,9 @@
   "exclude": [
     "node_modules",
     "build"
-  ]
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "usePrecompiledFiles": true
+  }
 }
